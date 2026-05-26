@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<canvas id="hero-canvas"></canvas>
+
 <nav>
   <a href="index.html" class="nav-logo">Rabid<span>Freak</span></a>
   <ul class="nav-links">
@@ -19,7 +21,6 @@
 
 <main>
   <section class="hero">
-    <div class="hero-grid-bg"><canvas id="hero-canvas"></canvas></div>
     <p class="hero-eyebrow">// I do stuff</p>
     <h1>
       Hello
@@ -128,7 +129,7 @@
 
       const s = sq * cell.scale;
       ctx.globalAlpha = cell.opacity;
-      ctx.fillStyle = '#4d9eff';
+      ctx.fillStyle = '#7fffb2';
       ctx.fillRect(cell.x - s / 2, cell.y - s / 2, s, s);
     }
 
@@ -137,9 +138,8 @@
   }
 
   window.addEventListener('mousemove', e => {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
   });
 
   window.addEventListener('mouseleave', () => {
