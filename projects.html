@@ -21,7 +21,7 @@
   <div class="page-header reveal">
     <p class="eyebrow">// 03 — Projects</p>
     <h1>All <span class="hl">repos.</span></h1>
-    <p>API shit does this for me.</p>
+    <p>Every public repository, updated live from the GitHub API. Filter by language or sort by activity.</p>
   </div>
 
   <section>
@@ -49,7 +49,7 @@
     </div>
 
     <div id="repo-grid" class="repo-grid">
-      <div class="loading">Be patient Bitch<span class="loading-dots"></span></div>
+      <div class="loading">Fetching repositories<span class="loading-dots"></span></div>
     </div>
   </section>
 </main>
@@ -147,7 +147,7 @@
   async function loadProjects() {
     try {
       const res = await fetch('https://api.github.com/users/RabidFreak/repos?sort=updated&per_page=100');
-      allRepos = await res.json();
+      allRepos = (await res.json()).filter(r => r.name !== 'RabidFreak.github.io');
 
       if (!Array.isArray(allRepos) || !allRepos.length) {
         document.getElementById('repo-grid').innerHTML =
@@ -160,7 +160,7 @@
       applyFiltersAndSort();
     } catch (e) {
       document.getElementById('repo-grid').innerHTML =
-        '<div class="empty">Either your wifi is fucked or the website is 50/50 chance</div>';
+        '<div class="empty">Could not load repositories. Check your connection.</div>';
     }
   }
 
