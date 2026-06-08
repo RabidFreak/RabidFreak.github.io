@@ -122,6 +122,29 @@
     #lightbox-prev { left: 1rem; }
     #lightbox-next { right: 1rem; }
 
+    #lightbox-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    #lightbox-download:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(127,255,178,0.06);
+    }
+
     .error-box {
       border: 1px solid var(--muted2);
       padding: 3rem 2rem;
@@ -173,8 +196,8 @@
 <main>
   <div class="page-header reveal">
     <p class="eyebrow">// 02A — Gallery</p>
-    <h1>Featured <span class="hl">\images.</span></h1>
-    <p>Images made or hosed by <code style="color:var(--accent); font-family:var(--font-mono);">ME</code> are here.</p>
+    <h1>Featured <span class="hl">work.</span></h1>
+    <p>Images loaded from the <code style="color:var(--accent); font-family:var(--font-mono);">/IMG</code> folder in this repo.</p>
   </div>
 
   <section>
@@ -203,6 +226,7 @@
   <button id="lightbox-prev">←</button>
   <img id="lightbox-img" src="" alt="">
   <span id="lightbox-name"></span>
+  <a id="lightbox-download" download>↓ download</a>
   <button id="lightbox-next">→</button>
 </div>
 
@@ -245,11 +269,15 @@
   const lbClose = document.getElementById('lightbox-close');
   const lbPrev  = document.getElementById('lightbox-prev');
   const lbNext  = document.getElementById('lightbox-next');
+  const lbDl    = document.getElementById('lightbox-download');
 
   function openLightbox(index) {
     lightboxIndex = index;
-    lbImg.src = lightboxImages[index].url;
-    lbName.textContent = lightboxImages[index].name;
+    const item = lightboxImages[index];
+    lbImg.src          = item.url;
+    lbName.textContent = item.name;
+    lbDl.href          = item.url;
+    lbDl.download      = item.name;
     lb.classList.add('open');
   }
 
