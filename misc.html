@@ -6,7 +6,32 @@
   <title>Misc — RabidFreak</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── shared tool card ── */
+    .misc-tabs {
+      display: flex;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-bottom: none;
+      width: fit-content;
+      margin-bottom: 0;
+    }
+    .misc-tab {
+      background: var(--surface);
+      border: none;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.6rem;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+    }
+    .misc-tab:hover { color: var(--text); background: var(--surface2); }
+    .misc-tab.active { color: var(--accent); background: var(--surface2); }
+    .tab-panel > .tool-section { border-top: none; }
+
+    /* shared tool card ── */
     .tool-section {
       border: 1px solid var(--border);
       margin-bottom: 2rem;
@@ -255,98 +280,85 @@
     <p>Stuff that runs in the browser. No installs.</p>
   </div>
 
-  <!-- ══════════════════════════════════════
-       BENCHMARK
-  ══════════════════════════════════════ -->
-  <section class="reveal">
-    <div class="section-label">Benchmark</div>
-    <div class="tool-section">
-      <div class="tool-header">
-        <span class="tool-title">Browser Benchmark</span>
-        <span class="tool-tag">CPU · GPU · Memory</span>
-      </div>
-      <div class="tool-body">
-        <div class="bench-grid" id="bench-grid">
-          <div class="bench-card">
-            <div class="bench-label">CPU Score</div>
-            <div class="bench-value" id="b-cpu">—<span class="bench-unit"></span></div>
-            <div class="bench-bar-wrap"><div class="bench-bar" id="b-cpu-bar"></div></div>
-          </div>
-          <div class="bench-card">
-            <div class="bench-label">GPU Score</div>
-            <div class="bench-value" id="b-gpu">—<span class="bench-unit"></span></div>
-            <div class="bench-bar-wrap"><div class="bench-bar" id="b-gpu-bar"></div></div>
-          </div>
-          <div class="bench-card">
-            <div class="bench-label">Memory Score</div>
-            <div class="bench-value" id="b-mem">—<span class="bench-unit"></span></div>
-            <div class="bench-bar-wrap"><div class="bench-bar" id="b-mem-bar"></div></div>
-          </div>
-          <div class="bench-card">
-            <div class="bench-label">JS Ops/sec</div>
-            <div class="bench-value" id="b-ops">—<span class="bench-unit">M</span></div>
-            <div class="bench-bar-wrap"><div class="bench-bar" id="b-ops-bar"></div></div>
-          </div>
-          <div class="bench-card">
-            <div class="bench-label">Canvas FPS</div>
-            <div class="bench-value" id="b-fps">—<span class="bench-unit">fps</span></div>
-            <div class="bench-bar-wrap"><div class="bench-bar" id="b-fps-bar"></div></div>
-          </div>
-          <div class="bench-card">
-            <div class="bench-label">Array Ops/sec</div>
-            <div class="bench-value" id="b-arr">—<span class="bench-unit">M</span></div>
-            <div class="bench-bar-wrap"><div class="bench-bar" id="b-arr-bar"></div></div>
-          </div>
-        </div>
+  <!-- ══ TABS ══ -->
+  <section>
+    <div class="misc-tabs" id="misc-tabs">
+      <button class="misc-tab active" data-tab="benchmark">Benchmark</button>
+      <button class="misc-tab" data-tab="music">Music Maker</button>
+    </div>
 
-        <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
-          <div>
-            <div class="bench-score" id="b-total">—</div>
-            <div class="bench-score-label">Total Score</div>
-          </div>
-          <button class="btn" id="bench-btn" onclick="runBenchmark()">Run Benchmark</button>
+    <!-- BENCHMARK -->
+    <div class="tab-panel" id="tab-benchmark">
+      <div class="tool-section">
+        <div class="tool-header">
+          <span class="tool-title">Browser Benchmark</span>
+          <span class="tool-tag">CPU · GPU · Memory</span>
         </div>
-        <div class="bench-log" id="bench-log"></div>
+        <div class="tool-body">
+          <div class="bench-grid" id="bench-grid">
+            <div class="bench-card">
+              <div class="bench-label">CPU Score</div>
+              <div class="bench-value" id="b-cpu">—<span class="bench-unit"></span></div>
+              <div class="bench-bar-wrap"><div class="bench-bar" id="b-cpu-bar"></div></div>
+            </div>
+            <div class="bench-card">
+              <div class="bench-label">GPU Score</div>
+              <div class="bench-value" id="b-gpu">—<span class="bench-unit"></span></div>
+              <div class="bench-bar-wrap"><div class="bench-bar" id="b-gpu-bar"></div></div>
+            </div>
+            <div class="bench-card">
+              <div class="bench-label">Memory Score</div>
+              <div class="bench-value" id="b-mem">—<span class="bench-unit"></span></div>
+              <div class="bench-bar-wrap"><div class="bench-bar" id="b-mem-bar"></div></div>
+            </div>
+            <div class="bench-card">
+              <div class="bench-label">JS Ops/sec</div>
+              <div class="bench-value" id="b-ops">—<span class="bench-unit">M</span></div>
+              <div class="bench-bar-wrap"><div class="bench-bar" id="b-ops-bar"></div></div>
+            </div>
+            <div class="bench-card">
+              <div class="bench-label">Canvas FPS</div>
+              <div class="bench-value" id="b-fps">—<span class="bench-unit">fps</span></div>
+              <div class="bench-bar-wrap"><div class="bench-bar" id="b-fps-bar"></div></div>
+            </div>
+            <div class="bench-card">
+              <div class="bench-label">Array Ops/sec</div>
+              <div class="bench-value" id="b-arr">—<span class="bench-unit">M</span></div>
+              <div class="bench-bar-wrap"><div class="bench-bar" id="b-arr-bar"></div></div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+            <div>
+              <div class="bench-score" id="b-total">—</div>
+              <div class="bench-score-label">Total Score</div>
+            </div>
+            <button class="btn" id="bench-btn" onclick="runBenchmark()">Run Benchmark</button>
+          </div>
+          <div class="bench-log" id="bench-log"></div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- ══════════════════════════════════════
-       MUSIC MAKER
-  ══════════════════════════════════════ -->
-  <section class="reveal">
-    <div class="section-label">Music Maker</div>
-    <div class="tool-section">
-      <div class="tool-header">
-        <span class="tool-title">Step Sequencer</span>
-        <span class="tool-tag">16 steps · 6 instruments</span>
-      </div>
-      <div class="tool-body">
-        <div class="mm-controls">
-          <button class="btn" id="mm-play">▶ Play</button>
-          <button class="btn" id="mm-clear">Clear</button>
-
-          <label>Instrument</label>
-          <select id="mm-instrument">
-            <option value="kick">Kick</option>
-            <option value="snare">Snare</option>
-            <option value="hihat">Hi-Hat</option>
-            <option value="openhat">Open Hat</option>
-            <option value="clap">Clap</option>
-            <option value="bass">Bass Synth</option>
-            <option value="lead">Lead Synth</option>
-            <option value="pad">Pad</option>
-          </select>
-
-          <label>Tempo</label>
-          <input type="range" id="mm-tempo-slider" min="40" max="220" value="120">
-          <input type="number" id="mm-tempo-num" min="40" max="220" value="120">
-          <span style="font-size:11px; color:var(--muted);">BPM</span>
+    <!-- MUSIC MAKER -->
+    <div class="tab-panel" id="tab-music" style="display:none;">
+      <div class="tool-section">
+        <div class="tool-header">
+          <span class="tool-title">Step Sequencer</span>
+          <span class="tool-tag">16 steps · 8 instruments</span>
         </div>
-
-        <div class="mm-step-nums" id="mm-step-nums"></div>
-        <div class="mm-grid-wrap">
-          <div class="mm-grid" id="mm-grid"></div>
+        <div class="tool-body">
+          <div class="mm-controls">
+            <button class="btn" id="mm-play">▶ Play</button>
+            <button class="btn" id="mm-clear">Clear</button>
+            <label>Tempo</label>
+            <input type="range" id="mm-tempo-slider" min="40" max="220" value="120">
+            <input type="number" id="mm-tempo-num" min="40" max="220" value="120">
+            <span style="font-size:11px; color:var(--muted);">BPM</span>
+          </div>
+          <div class="mm-step-nums" id="mm-step-nums"></div>
+          <div class="mm-grid-wrap">
+            <div class="mm-grid" id="mm-grid"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -379,6 +391,16 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   reveals.forEach(r => obs.observe(r));
+
+  // ── Tabs ──
+  document.querySelectorAll('.misc-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.misc-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).style.display = 'block';
+    });
+  });
 
   // ════════════════════════════════════════
   // BENCHMARK
